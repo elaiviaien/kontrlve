@@ -17,6 +17,7 @@ async def get_active_game(session: AsyncSession, user_id: int) -> Game | None:
         select(Game)
         .where(Game.user_id == user_id, Game.status != "finished")
         .order_by(Game.created_at.desc())
+        .limit(1)
     )
     return result.scalar_one_or_none()
 
